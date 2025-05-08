@@ -7,6 +7,10 @@ export function combineObjects(obj1, obj2) {
   // Example 2: const obj1 = {name: 'Alice', age: 25};
   // const obj2 = {name: 'John', age: 21};
   // Expected output: {name: 'John', age: 21}
+  let res = {};
+ 
+
+  
 }
 
 export function changeValueOf(obj, key, value) {
