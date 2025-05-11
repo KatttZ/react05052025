@@ -6,7 +6,7 @@ export function checkIfStringIsNumber(str) {
   //   returns a boolean indicating if the str is a number
   //   Example:
   //   '1' -> true, "a" -> false, "1a" -> false
-    return typeof str === 'string' && str.trim() !== '' && !isNaN(str);
+    return !isNaN(str);
 }
 
 export function findAvgOfNums(arr) {
@@ -68,7 +68,7 @@ export function findMaxNum(arr) {
       max = num
     }
   }
-  return max;
+  return arr.length === 0 ? 0 : max;
 }
 
 export function findLongestWord(str) {
@@ -108,11 +108,31 @@ export function bubbleSortArr1(num) {
   // Do not use Array.prototype.sort
   // Example: const num = [5, 3, 8, 2, 1];
   // Expected output: [1, 2, 3, 5, 8]
+  const arr = [...num]; 
+  
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < arr.length -1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
 
+  return arr;
 }
 
 export function bubbleSortArr2(num) {
   // Same as above but this time returns the original array reference sorted.
+
+  for (let i = 0; i < num.length - 1; i++) {
+    for (let j = 0; j < num.length - 1 - i; j++) {
+      if (num[j] > num[j + 1]) {
+        [num[j], num[j + 1]] = [num[j + 1], num[j]];
+      }
+    }
+  }
+
+  return num;
 }
 
 export function removeTypes(arr, typeToRemove) {
@@ -161,7 +181,7 @@ export function removeNumFromArr(nums, num) {
     let res = [];
     for (let i = 0; i < nums.length; i++) {
       if (nums[i] !== num) {
-        result.push(nums[i]);
+        res.push(nums[i]);
       }
     }
     return res; 
