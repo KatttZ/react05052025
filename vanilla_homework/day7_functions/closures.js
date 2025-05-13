@@ -52,17 +52,11 @@ export function functionStore() {
     const functions = {};
 
     function store(key, fn){
-        if(typeof fn !== 'function'){
-            throw new Error('You must store a function');
-        }
         functions[key] = fn;
     }
 
     function run(key, ...args){
         const fn = functions[key];
-        if(!fn){
-            throw new Error(`No match function found`)
-        }
         return fn(...args)
     }
 
