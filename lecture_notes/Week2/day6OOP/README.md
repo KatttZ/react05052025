@@ -247,3 +247,6 @@ console.log(Object.entries(obj)); // [['a', 1], ['b', 2]]
 ```
 
 
+method vs function
+all the method is function 
+but if a function belongs to a object is a method

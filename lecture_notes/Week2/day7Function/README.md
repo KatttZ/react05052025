@@ -2,6 +2,9 @@
 
 
 ## Function 
+A function in JavaScript is a block of code that can be called by name. It can accept input parameters and return a value. 
+
+function declaration === function definition 
 
 
 ### arrow function
@@ -41,6 +44,16 @@ function greet(name, callback) {
 }
 greet("Alice", msg => console.log(msg));
 ```
+
+### pure function
+deterministic
+It always return the same output for the same input
+no side effects
+doesn't change anything outside itself / no modifying global variables, DOM, file systems
+
+### call stack
+
+
 ### Scope
 
 -   Lexical Scoping
@@ -123,7 +136,7 @@ function debounce(fn, delay) {
 Throttle
 Limits function calls to only once every X milliseconds, no matter how many times it's triggered.
 Use case: scroll or resize events.
-```js
+```js 
 function throttle(fn, interval) {
   let lastTime = 0;
   return function(...args) {

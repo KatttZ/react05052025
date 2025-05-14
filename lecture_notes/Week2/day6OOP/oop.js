@@ -133,9 +133,6 @@ const book1 = Object.create(bookProtos,{
 console.log(book1)
 
 
-
-
-
 class BookClass {
     constructor(title, author, year){
         this.title = title;
