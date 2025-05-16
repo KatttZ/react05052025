@@ -58,7 +58,7 @@ describe("Authentication", () => {
   describe("login", () => {
     it("should login the user with email and password", async () => {
       const email = "leanne.graham@email.com";
-      const password = "password1";
+      const password = "1drowssapencoded";
       const expectedUser = {
         name: "Leanne Graham",
         username: "Bret",
