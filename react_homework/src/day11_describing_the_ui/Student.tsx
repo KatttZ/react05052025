@@ -12,16 +12,26 @@
 import { Component } from "react";
 
 // implement a Student component here
-
 export interface StudentType {
-  
+  id: number;
+  name:string;
+  age:number;
+  grade: "A"|"B"|"C"|"D"|"F"
 }
 
-export function StudentFn() {
-  return <div data-testid="student"></div>;
+export function StudentFn({student}:{student:StudentType}) {
+  return(
+     <div data-testid="student">
+        <h1>{student.id}</h1>
+        <p>{student.name}</p>
+        <p>{student.age}</p>
+        <p>{student.grade}</p>
+     </div>
+  );
 }
 
-export class StudentClass extends Component {
+
+export class StudentClass extends Component{
   render() {
     return <div data-testid="student">Student</div>;
   }

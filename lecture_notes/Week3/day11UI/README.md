@@ -116,6 +116,8 @@ To display a list of items (like users or tasks), you use .map()
 ```js
 const users = ['Alex', 'Bob', 'Charles'];
 
+//filter user:
+const myUser = users.filter(user => user === 'Alex')
 function UserList(){
     return (
         <ul>
