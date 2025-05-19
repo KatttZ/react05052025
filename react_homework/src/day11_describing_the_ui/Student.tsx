@@ -13,7 +13,9 @@ import { Component } from "react";
 
 // implement a Student component here
 
-export interface StudentType {}
+export interface StudentType {
+  
+}
 
 export function StudentFn() {
   return <div data-testid="student"></div>;

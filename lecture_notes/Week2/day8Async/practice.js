@@ -90,3 +90,13 @@ function generatePassword4() {
     }
   }
 }
+
+
+const myPromise = new Promise((resolve) => {
+    setTimeout(() => {
+        resolve('foo')
+    },300)
+})
+
+
+myPromise.then(handleFulfilledA, handleRejectedA)
