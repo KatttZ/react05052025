@@ -4,17 +4,24 @@ npx create-react-app app-name
 
 ## What is & Why React 
 React is a lightweight JavaScript library for building user interfaces. It’s:
-    – Components-based, meaning you build small, reusable pieces of UI (like buttons, form, etc.).
-	– Uses a Virtual DOM for fast rendering — only updates the parts of the UI that actually change.
-	– Has a great ecosystem with tools like Redux(for state management), React Router( for navigation), and lots of 3rd party libraries that make development easier.
+
+–  Components-based, meaning you build small, reusable pieces of UI (like buttons, form, etc.).
+
+– Uses a Virtual DOM for fast rendering — only updates the parts of the UI that actually change.
+	
+– Has a great ecosystem with tools like Redux(for state management), React Router( for navigation), and lots of 3rd party libraries that make development easier.
+
 It’s popular because it helps build interactive, dynamic web apps efficiently
 
 
 ## React Virtual DOM
 The Virtual DOM is a lightweight copy of the real DOM (the structure of the page).
-	– Updating the real DOM is slow, so React uses the virtual DOM to calculate changes first.
-	– When your app’s state changes, React compares the previous virtual DOM to the new one.
-	– Then it uses a diffing algorithm to figure out the smallest set of changes needed and updates the real DOM efficiently
+	
+– Updating the real DOM is slow, so React uses the virtual DOM to calculate changes first.
+	
+– When your app’s state changes, React compares the previous virtual DOM to the new one.
+	
+– Then it uses a diffing algorithm to figure out the smallest set of changes needed and updates the real DOM efficiently
 This makes your UI fast and responsive. 
 
 ## Creating a react app 
@@ -46,9 +53,7 @@ In React, components are the building blocks of your UI. They can be:
 function components( most common)
 class components (older, less common now)
 Each component returns JSX - a syntax that looks like HTML but works in JavaScript
-- JSX and curly braces
-JSX lets you write HTML-like code inside JavaScript, making UI easier to describe.
-    you use curly braces {} in JSX to embed JavaScript expressions like variables, function calls, or logic.
+- JSX lets you write HTML-like code inside JavaScript, making UI easier to describe. you use curly braces {} in JSX to embed JavaScript expressions like variables, function calls, or logic.
 
 ```jsx
 const name = 'Emile'
@@ -59,8 +64,7 @@ function Greeting(){
 ```
 You can also use {} for dynamic content, conditions, arrays, and more.
 
-- props (short for properties)
-Props are how you pass data from parent to child components. They make components reusable and dynamic.
+- props (short for properties) are how you pass data from parent to child components. They make components reusable and dynamic.
 ```jsx
 function Welcome(props){
     return <h1>Welcome, {props.name}!</h1>
@@ -70,8 +74,7 @@ function Welcome(props){
 ```
 Props are read-only inside the component,
 You can pass any value: string, number, object, function, etc
-- children prop
-The children prop is a special prop that represents whatever you wrap inside a component.
+- children prop is a special prop that represents whatever you wrap inside a component.
 ```jsx
 function Card(props){
     return <div classname='card'>{props.children}</div>
@@ -84,15 +87,16 @@ function Card(props){
 </Card>
 ```
 
-everything inside <Card>...</Card> gets passed as props.children and rendered inside the card
+everything inside Card gets passed as props.children and rendered inside the card
 This is useful for layout components, modals, wrappers, etc
 
 
 ## Rendering
-In React, rendering means deciding what to show on the screen based on data (like state or props).
+Rendering means deciding what to show on the screen based on data (like state or props).
 React updates the UI automatically when that data changes
 
-- conditional rendering
+- conditional rendering:
+
 you can show or hide elements based on conditions using JavaScript logic like if, ?: , or &&
 
 ```jsx
@@ -111,7 +115,8 @@ function Message({isLoggedIn}){
 {isDarkMode ? <DarkTheme/> : <LightTheme/>}
 ```
 
-- rendering lists
+- rendering lists:
+
 To display a list of items (like users or tasks), you use .map()
 ```js
 const users = ['Alex', 'Bob', 'Charles'];
