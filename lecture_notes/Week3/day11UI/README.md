@@ -258,3 +258,5 @@ class Counter extends Component {
 this.state holds the current state
 this.setState() triggers a re-render
 Use a function in setState if the new value depends on the previous state
+
+

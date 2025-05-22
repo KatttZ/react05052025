@@ -8,15 +8,15 @@ export default function MyComponent() {
     model: "Mustang",
   });
 
-  const handleYearChange = (e) => {
+  const handleYearChange = (e:any) => {
         setCar(c => ({...c, year:e.target.value}));
   }
 
-  const handleMakeChange = (e) => {
+  const handleMakeChange = (e:any) => {
         setCar(c => ({...c, make:e.target.value}))
   }
 
-  const handleModelChange = (e) => {
+  const handleModelChange = (e:any) => {
         setCar(c => ({...c, model:e.target.value}))
   }
 
@@ -34,12 +34,14 @@ export function ArrayComponent() {
     const [foods, setFoods] = useState(['Apple', 'Orange', 'Banana'])
 
     const handleAddFood = () => {
+        //@ts-ignore
         const newFood = document.getElementById('foodInput').value;
+        //@ts-ignore
         document.getElementById('foodInput').value = "";
         setFoods(f => [...f, newFood])
     }
 
-    const handleRemoveFood = (index) => {
+    const handleRemoveFood = (index:any) => {
         setFoods(foods.filter((_,i) => i !== index));
     }
 
@@ -65,7 +67,7 @@ export function ArrayObj() {
 
     const handleAddCar = () => {
         const newCar = {year:carYear, make:carMake, model:carModel};
-
+        //@ts-ignore
         setCars(c => [...c, newCar]);
 
         setCarYear(new Date().getFullYear());
@@ -73,19 +75,19 @@ export function ArrayObj() {
         setCarModel("")
     }
 
-    const handleRemoveCar = (index) => {
+    const handleRemoveCar = (index:any) => {
         setCars(cars => cars.filter((_,i) => i !== index))
     }
 
-    const handleYearChange = (event) => {
+    const handleYearChange = (event:any) => {
         setCarYear(event.target.value) 
     }
 
-    const handleMakeChange = (event) => {
+    const handleMakeChange = (event:any) => {
         setCarMake(event.target.value)
     }
 
-    const handleModelChange = (event) => {
+    const handleModelChange = (event:any) => {
         setCarModel(event.target.value)
     }
 
@@ -95,7 +97,8 @@ export function ArrayObj() {
         <ul>
             {cars.map((car, index) => 
                 <li key={index} onClick={()=>handleRemoveCar(index)}>
-                    {car.year} {car.make} {car.model}
+                    {//@ts-ignore
+                    car.year} {car.make} {car.model}
                 </li>)}
         </ul>
         <input type="number" value={carYear} onChange={handleYearChange}/><br/>
