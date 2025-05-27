@@ -1,6 +1,3 @@
-import Checkbox from "../ControlledComponents/Checkbox";
-import RadioGroup from "../ControlledComponents/RadioGroup";
-import Select from "../ControlledComponents/Select";
 import { useState } from "react";
 
 export default function TodoListApp() {
@@ -72,9 +69,6 @@ export default function TodoListApp() {
           </li>
         ))}
       </ul>
-      <Checkbox />
-      <RadioGroup />
-      <Select />
     </div>
   );
 }

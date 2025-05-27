@@ -1,22 +1,22 @@
 export default function RadioGroup() {
   return (
     <div>
-      <h2>RadioGroup</h2>
+      <h2 style={{color:"green"}}>RadioGroup</h2>
       <fieldset>
         <legend>Gender:</legend>
 
         <div>
           <input type="radio" id="female" value="female" name="gender" checked />
-          <label for="female">Female</label>
+          <label >Female</label>
         </div>
         <div>
           <input type="radio" id="male" value="male" name="gender" />
-          <label for="male">Male</label>
+          <label >Male</label>
         </div>
 
         <div>
           <input type="radio" id="other" value="other"name="gender" />
-          <label for="other">Other</label>
+          <label >Other</label>
         </div>
       </fieldset>
     </div>

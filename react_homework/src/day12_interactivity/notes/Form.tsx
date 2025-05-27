@@ -5,7 +5,7 @@ export default function Form() {
     const [body, setBody] = useState("");
     const [author, setAuthor] = useState("mario");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
         const blog = {title, body, author};
         console.log(blog);

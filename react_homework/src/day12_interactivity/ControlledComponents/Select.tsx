@@ -1,12 +1,13 @@
 export default function Select() {
   return (
     <div>
-    <h2>Select & Option</h2>
+    <h2 style={{color:"green"}}>Select & Option</h2>
 
     <fieldset>
-      <legend>Age</legend>
+      <legend>Age:</legend>
       <select>
-          <option value="">--Select Age--</option>
+          <option value="">-- Select Age --</option>
+          <option value="Secret">Secret</option>
           <option value="10">Ten</option>
           <option value="20">Twenty</option>
           <option value="30">Thirty</option>
