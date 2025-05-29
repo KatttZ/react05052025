@@ -8,18 +8,18 @@ import "./App.css";
 import Day12Play from "./day12_interactivity/notes";
 import Day13Play from "./day13_lifecycles/notes";
 import Day14Play from "./day14_practice";
-
+import Day16Play from "./day16_pattern";
 
 function App() {
   return (
     <>
       {/* <Day11Notes/> */}
       {/* <Day22Play /> */}
-      {/* <TodoListApp/>
-      <Day12Play/> */}
+      {/* <TodoListApp/>*/}
       {/* <Day12Play/>  */}
       {/* <Day13Play /> */}
-      <Day14Play />
+      {/* <Day14Play /> */}
+      <Day16Play/>
     </>
   );
 }

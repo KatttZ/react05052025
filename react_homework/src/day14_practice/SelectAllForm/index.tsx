@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function SelectAllForm() {
   const items = ["item1", "item2", "item3"];
