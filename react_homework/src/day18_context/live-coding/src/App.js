@@ -1,13 +1,14 @@
+import "./App.css";
+import FitnessTracker from "./components/FitnessTracker";
+// import FetchPosts from "./components/FetchPosts";
 
-import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Code playground</h1>
-
-    </div>
-  );
+  return <div className="App">
+     <h1>Code playground</h1>
+    {/* <FetchPosts /> */}
+    <FitnessTracker/>
+  </div>
 }
 
 export default App;
