@@ -1,12 +1,14 @@
-import React from 'react';
-import { TodoProvider } from './context/ToDoContext';
-import TodoList from './components/ToDoList';
+import { TodoProvider } from "./context/ToDoContext";
+import TodoList from "./components/ToDoList";
+import './App.css'
 
 function App() {
   return (
-    <TodoProvider>
-      <TodoList />
-    </TodoProvider>
+    <div className="App">
+      <TodoProvider>
+        <TodoList />
+      </TodoProvider>
+    </div>
   );
 }
 
