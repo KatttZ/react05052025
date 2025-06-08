@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "id": "a344",
+      "task": "study!"
+    },
+    {
+      "id": "3bf2",
+      "task": "react!"
+    },
+    {
+      "id": "00e8",
+      "task": "redux!"
+    }
+  ]
+}
