@@ -1,9 +1,14 @@
 {
   "todos": [
     {
-      "id": "3910",
-      "task": "study",
+      "id": "c319",
+      "task": "redux",
       "completed": false
+    },
+    {
+      "id": "1fc9",
+      "task": "study",
+      "complete": false
     }
   ]
 }

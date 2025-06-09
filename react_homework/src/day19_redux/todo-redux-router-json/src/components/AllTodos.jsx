@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTodosThunk, addTodoThunk, deleteTodoThunk, toggleTodoThunk } from "../redux/todoSlice";
+import { fetchTodosThunk, addTodoThunk, deleteTodoThunk, toggleTodoThunk } from "../reducers/todoReducer";
 import TodoItem from "../components/TodoItem";
 
 export default function AllTodos() {
