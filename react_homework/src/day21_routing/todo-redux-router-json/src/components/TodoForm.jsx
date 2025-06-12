@@ -30,7 +30,9 @@ export default function TodoForm() {
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Enter Description..."
       />
-      <button type="submit" className="add-button">Add Todo</button>
+      <button type="submit" className="add-button">
+        Add Todo
+      </button>
     </form>
   );
 }

@@ -9,6 +9,10 @@ import Day12Play from "./day12_interactivity/notes";
 import Day13Play from "./day13_lifecycles/notes";
 import Day14Play from "./day14_practice";
 import Day16Play from "./day16_pattern";
+import DebouncedCallback from "./day17_performance/DebouncedCallback";
+import BirthdayTable from './day17_performance/BirthdayTable.jsx'
+import BirthdayRecordSolution from "./many_practices/BirthdayRecord/solution";
+
 // import ReduxTodoSolution from "./ReduxTodoSolution";
 
 function App() {
@@ -22,6 +26,10 @@ function App() {
       {/* <Day14Play /> */}
       {/* <Day16Play/> */}
       {/* <ReduxTodoSolution /> */}
+      {/* <BirthdayTable/>
+      <DebouncedCallback/> */}
+      <BirthdayTable/>
+      {/* <BirthdayRecordSolution/> */}
     </>
   );
 }
