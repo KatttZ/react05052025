@@ -26,9 +26,9 @@ function App() {
       {/* <Day14Play /> */}
       {/* <Day16Play/> */}
       {/* <ReduxTodoSolution /> */}
-      {/* <BirthdayTable/>
-      <DebouncedCallback/> */}
+      {/* <BirthdayTable/>*/}
       <BirthdayTable/>
+       <DebouncedCallback/> 
       {/* <BirthdayRecordSolution/> */}
     </>
   );
