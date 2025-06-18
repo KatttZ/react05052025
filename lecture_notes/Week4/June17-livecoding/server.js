@@ -10,13 +10,11 @@ app.use(express.json());
 const todos = [{ id: shortid.generate(), name: "Wash", completed: false }];
 
 app.get("/todos", (req, res) => {
-  // res.send('get todos')
   // res.send(todos)  same like json
   res.status(200).json({ message: "get todos successfully", todos });
 });
 
 app.post("/todos", (req, res) => {
-  // res.send('post todos')
   const { name } = req.body;
   if (!name) {
     return res.status(400).json({ message: "Todo name is required" });
@@ -25,11 +23,10 @@ app.post("/todos", (req, res) => {
   todos.push(newTodo);
   res
     .status(200)
-    .json({ message: "Data received successfully", data: newTodo });
+    .json({ message: "Data received successfully", todo: newTodo });
 });
 
 app.put("/todos/:id", (req, res) => {
-  //   res.send("put todo");
   const { id } = req.params;
   const { name, completed } = req.body;
 
@@ -42,7 +39,7 @@ app.put("/todos/:id", (req, res) => {
   if (name) todo.name = name;
   if (completed) todo.completed = completed;
 
-  res.status(200).json({ message: "Todo updated successfully", data: todo });
+  res.status(200).json({ message: "Todo updated successfully", todo });
 });
 
 app.delete("/todos/:id", (req, res) => {
@@ -53,6 +50,7 @@ app.delete("/todos/:id", (req, res) => {
     return res.status(404).json({ message: "Todo not found" });
   }
 
+  //array.splice return a new array so need to destructure it 
   const [deletedTodo] = todos.splice(index, 1);
 
   res.status(200).json({
