@@ -5,7 +5,6 @@ const encryptPassword = (password) => {
     return hashedPassword;
 }
 
-
 const comparePassword = (password, hashedPassword) => {
     return bcrypt.compare(password, hashedPassword)
 }

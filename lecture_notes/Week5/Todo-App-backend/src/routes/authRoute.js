@@ -1,8 +1,9 @@
 const express = require("express");
 const shortId = require("shortid");
 const generateToken = require("../utils/jwt");
-const authenticateToken = require("../middlewares/authenticate");
 const { encryptPassword, comparePassword } = require("../utils/password");
+const authenticateToken = require("../middlewares/authenticate");
+
 const router = express.Router();
 const users = [];
 
@@ -35,20 +36,38 @@ router.post("/login", async (req, res) => {
   }
 
   const token = generateToken(user.id);
-  res.json({ token });
+
+  //send it as an http-only cookie, no need to manually paste token in header
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    maxAge: 360000,
+  });
+
+  res.status(200).json({ message: "Login successful" });
+  // res.status(200).json({ message:"Login successful",token });
 });
 
 //get current user info
-router.get("/current", authenticateToken, (req, res) => {
+router.get("/current", authenticateToken, async (req, res) => {
   const user = users.find((user) => user.id === req.userId);
   if (!user) return res.status(404).json({ message: "User not found" });
 
-  res.json({message:"Welcome!", id: user.id, username: user.username });
+  res
+    .status(200)
+    .json({ message: "Welcome!", id: user.id, username: user.username });
 });
 
 //logout
-router.post("/logout", (req, res) => {
-  res.json({ message: "Logged out successfully" });
+router.post("/logout", async (req, res) => {
+  //clear the cookie named "token"
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false, 
+    sameSite: "lax",
+  });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 module.exports = router;
