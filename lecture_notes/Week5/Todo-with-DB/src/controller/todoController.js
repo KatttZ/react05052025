@@ -1,82 +1,153 @@
 const shortid = require("shortid");
-
-const todos = [];
+const {pool} = require("../config/database")
 
 // GET all todos for current user
 const getUserTodos = async (req, res) => {
-  const userTodos = todos.filter((todo) => todo.userId === req.userId);
-  res.status(200).json({ message: "Todos fetched", todos: userTodos });
+  try{
+    const [todos] = await pool.execute(
+      'SELECT * FROM todos WHERE user_id = ?',
+      [req.userId]
+    );
+
+    res.status(200).json({ 
+      message: "Todos fetched", 
+      todos: todos,
+      count: todos.length
+    });
+
+  }catch(error){
+    console.error("Get todos error", error);
+    res.status(500).json({message:"Internal server error"})
+  }
 };
 
 // GET todo by ID
 const getTodoById = async (req, res) => {
-  const { id } = req.params;
-  const todo = todos.find((todo) => todo.id === id);
-  if (!todo) {
-    return res.status(404).json({ message: "Todo not found" });
-  }
+try {
+    const { id } = req.params;
+    
+    const [todos] = await pool.execute(
+      'SELECT * FROM todos WHERE id = ?',
+      [id]
+    );
 
-  if (todo.userId !== req.userId) {
-    return res.status(403).json({ message: "Access not allowed" });
-  }
+    if (todos.length === 0) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
 
-  res.status(200).json({ message: "Todo fetched", todo });
+    const todo = todos[0];
+    if (todo.user_id !== req.userId) {
+      return res.status(403).json({ message: "Access not allowed" });
+    }
+
+    res.status(200).json({ message: "Todo fetched", todo });
+  } catch (error) {
+    console.error('Get todo by ID error:', error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 // POST a new todo for current user
 const createTodo = async (req, res) => {
-  const { title } = req.body;
+try {
+    const { title } = req.body;
 
-  if (!title) {
-    return res.status(400).json({ message: "Title is required!" });
+    if (!title || title.trim() === '') {
+      return res.status(400).json({ message: "Title is required!" });
+    }
+
+    const todoId = shortid.generate();
+    
+    await pool.execute(
+      'INSERT INTO todos (id, user_id, title, completed) VALUES (?, ?, ?, ?)',
+      [todoId, req.userId, title.trim(), false]
+    );
+
+    // Fetch the created todo to return it
+    const [todos] = await pool.execute(
+      'SELECT * FROM todos WHERE id = ?',
+      [todoId]
+    );
+
+    res.status(201).json({ message: "Todo created", todo: todos[0] });
+  } catch (error) {
+    console.error('Create todo error:', error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  const newTodo = {
-    userId: req.userId,
-    id: shortid.generate(),
-    title,
-    completed: false,
-  };
-
-  todos.push(newTodo);
-  res.status(201).json({ message: "Todo created", todo: newTodo });
 };
 
 // PUT update a todo by ID for current user, if todo not belongs to current user will be forbidden
 const updateTodo = async (req, res) => {
-  const { id } = req.params;
-  const { title, completed } = req.body;
+  try {
+    const { id } = req.params;
+    const { title, completed } = req.body;
 
-  const todo = todos.find((todo) => todo.id === id);
-  if (!todo) {
-    return res.status(404).json({ message: "Todo not found" });
-  }
-  if (todo.userId !== req.userId) {
-    return res.status(403).json({ message: "Access not allowed" });
-  }
-  if (title) todo.title = title;
-  if (typeof completed === "boolean") todo.completed = completed;
+    const [todos] = await pool.execute(
+      'SELECT * FROM todos WHERE id = ?',
+      [id]
+    );
 
-  res.status(200).json({ message: "Todo updated successfully", todo });
+    if (todos.length === 0) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
+    const todo = todos[0];
+    if (todo.user_id !== req.userId) {
+      return res.status(403).json({ message: "Access not allowed" });
+    }
+
+    const newTitle = title !== undefined ? title : todo.title;
+    const newCompleted = typeof completed === 'boolean' ? completed : todo.completed;
+
+    await pool.execute(
+      `UPDATE todos SET title = ?, completed = ? WHERE id = ?`,
+      [newTitle, newCompleted, id]
+    );
+
+    const [updatedTodos] = await pool.execute(
+      'SELECT * FROM todos WHERE id = ?',
+      [id]
+    );
+
+    res.status(200).json({ message: "Todo updated successfully", todo: updatedTodos[0] });
+  } catch (error) {
+    console.error('Update todo error:', error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
+
 
 // DELETE a todo by ID for current user, if todo not belongs to current user will be forbidden
 const deleteTodo = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const todo = todos.find((todo) => todo.id === id);
-  const index = todos.findIndex((todo) => todo.id === id);
+    // First, check if todo exists and belongs to user
+    const [todos] = await pool.execute(
+      'SELECT * FROM todos WHERE id = ?',
+      [id]
+    );
 
-  if (index === -1) {
-    res.status(404).json({ message: "Todo not found" });
+    if (todos.length === 0) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
+    const todo = todos[0];
+    if (todo.user_id !== req.userId) {
+      return res.status(403).json({ message: "Access not allowed" });
+    }
+
+    // Delete the todo
+    await pool.execute(
+      'DELETE FROM todos WHERE id = ?',
+      [id]
+    );
+
+    res.status(200).json({ message: "Todo deleted", todo });
+  } catch (error) {
+    console.error('Delete todo error:', error);
+    res.status(500).json({ message: "Internal server error" });
   }
-  if (todo.userId !== req.userId) {
-    return res.status(403).json({ message: "Access not allowed" });
-  }
-  // splice return a new array, so will be the first element
-  const deletedTodo = todos.splice(index, 1)[0];
-
-  res.status(200).json({ message: "Todo deleted", todo: deletedTodo });
 };
 
 module.exports = {

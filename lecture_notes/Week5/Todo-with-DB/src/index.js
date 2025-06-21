@@ -1,20 +1,90 @@
+// require("dotenv").config();
+// const cookieParser = require("cookie-parser");
+// const express = require("express");
+
+// const authRoutes = require("./routes/authRoute");
+// const todosRoutes = require("./routes/todoRoute");
+
+// const app = express();
+// const PORT = 3000;
+
+// // middlewares
+// app.use(express.json()); //to parse JSON request body
+// app.use(cookieParser()); //to parse cookies from incoming requests
+
+// app.use("/auth", authRoutes);
+// app.use("/todos",todosRoutes)
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const express = require("express");
 
+const { testConnection, initDatabase } = require("./config/database");
 const authRoutes = require("./routes/authRoute");
 const todosRoutes = require("./routes/todoRoute");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// middlewares
-app.use(express.json()); //to parse JSON request body
-app.use(cookieParser()); //to parse cookies from incoming requests
+// Middlewares
+app.use(express.json()); // to parse JSON request body
+app.use(cookieParser()); // to parse cookies from incoming requests
 
+// Routes
 app.use("/auth", authRoutes);
-app.use("/todos",todosRoutes)
+app.use("/todos", todosRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ 
+    status: "OK", 
+    message: "Server is running",
+    timestamp: new Date().toISOString()
+  });
 });
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Something went wrong!" });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+// Database connection and server startup
+const startServer = async () => {
+  try {
+    // Test database connection
+    await testConnection();
+    
+    // Initialize database tables
+    await initDatabase();
+    
+    // Start server
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+// Handle graceful shutdown
+process.on('SIGINT', () => {
+  console.log('Received SIGINT. Graceful shutdown...');
+  process.exit(0);
+});
+
+process.on('SIGTERM', () => {
+  console.log('Received SIGTERM. Graceful shutdown...');
+  process.exit(0);
+});
+
+startServer();
