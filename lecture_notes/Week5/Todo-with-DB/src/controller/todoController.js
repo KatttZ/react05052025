@@ -1,5 +1,5 @@
 const shortid = require("shortid");
-const {pool} = require("../config/database")
+const { pool } = require("../database/connection");
 
 // GET all todos for current user
 const getUserTodos = async (req, res) => {

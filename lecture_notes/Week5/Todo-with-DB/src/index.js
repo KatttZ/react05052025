@@ -1,28 +1,10 @@
-// require("dotenv").config();
-// const cookieParser = require("cookie-parser");
-// const express = require("express");
-
-// const authRoutes = require("./routes/authRoute");
-// const todosRoutes = require("./routes/todoRoute");
-
-// const app = express();
-// const PORT = 3000;
-
-// // middlewares
-// app.use(express.json()); //to parse JSON request body
-// app.use(cookieParser()); //to parse cookies from incoming requests
-
-// app.use("/auth", authRoutes);
-// app.use("/todos",todosRoutes)
-
-// app.listen(PORT, () => {
-//   console.log(`Server is running on http://localhost:${PORT}`);
-// });
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const express = require("express");
 
-const { testConnection, initDatabase } = require("./config/database");
+// const { testConnection, initDatabase } = require("./config/database");
+const {initDatabase} = require("./database/initiation");
+
 const authRoutes = require("./routes/authRoute");
 const todosRoutes = require("./routes/todoRoute");
 
@@ -60,9 +42,6 @@ app.use((req, res) => {
 // Database connection and server startup
 const startServer = async () => {
   try {
-    // Test database connection
-    await testConnection();
-    
     // Initialize database tables
     await initDatabase();
     
@@ -76,15 +55,5 @@ const startServer = async () => {
   }
 };
 
-// Handle graceful shutdown
-process.on('SIGINT', () => {
-  console.log('Received SIGINT. Graceful shutdown...');
-  process.exit(0);
-});
-
-process.on('SIGTERM', () => {
-  console.log('Received SIGTERM. Graceful shutdown...');
-  process.exit(0);
-});
 
 startServer();

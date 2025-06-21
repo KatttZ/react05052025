@@ -1,7 +1,7 @@
 const shortId = require("shortid");
 const generateToken = require("../utils/jwt");
 const { encryptPassword, comparePassword } = require("../utils/password");
-const { pool } = require("../config/database");
+const { pool } = require("../database/connection");
 
 // Sign Up
 const signup = async (req, res) => {
