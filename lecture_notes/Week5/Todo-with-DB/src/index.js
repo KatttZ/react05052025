@@ -15,25 +15,17 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json()); // to parse JSON request body
 app.use(cookieParser()); // to parse cookies from incoming requests
 
+
 // Routes
 app.use("/auth", authRoutes);
 app.use("/todos", todosRoutes);
 
-// Health check endpoint
-app.get("/health", (req, res) => {
-  res.status(200).json({ 
-    status: "OK", 
-    message: "Server is running",
-    timestamp: new Date().toISOString()
-  });
-});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Something went wrong!" });
 });
-
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
