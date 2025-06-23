@@ -8,7 +8,7 @@ API (application programming interface)
 
 - NVM(Node Version Manager)
 
-1. A tool that lets you install and switch between different versions od Node.js
+1. A tool that lets you install and switch between different versions of Node.js
 2. Different projects may require different Node versions. NVM helps you manage that easily
 
 - CommonJs module (old way to export and import before ES Modules)
