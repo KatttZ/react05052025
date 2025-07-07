@@ -64,3 +64,65 @@ describe('Counter', () => {
   });
 });
 ```
+
+
+## Software Development Lifecycle
+Waterfall: long duration 
+requirement analysis => system design => implementation(coding) => testing => deployment => maintenance
+phases are dependent on each other
+changes is high risk
+
+
+Agile: faster time to market 
+ability to create and respond to change
+ 
+
+
+SCRUM: an agile framework used in software development to manage projects iteratively and incrementally emphasizing teamwork, collaboration, and adaptability
+breaks down work into short cycles called sprints, typically lasting one to four weeks, where teams self-organize to deliver a potentially shippable product increment
+
+![alt text](image.png)
+
+
+# CI/ CD Continuous Integration & Continuous Deployment(DevOps key practice)
+Continuous Integration: 
+when developers commit code to a shared repo frequently,
+each commit triggers an automated workflow on a CI server that can notify developers of any issues integrating their changes  (automatically tested and merged into the main branch)
+
+Helps catch bugs early, avoid “it works on my machine” issues.
+
+Example tools: GitHub Actions, GitLab CI, Jenkins, CircleCI
+
+🔄 CI Workflow:
+Dev pushes code to GitHub.
+CI pipeline runs:
+Linting
+Unit tests
+Build checks
+If all passes ✅, code merges or is ready to merge.
+
+
+Continuous Delivery(CD#1)
+automatically build and prepare app for deployment after successful CI
+ensures code is always in a deployable state
+
+
+Continuous Deployment(CD#2)
+takes it one step further -- automatically deploys code to production
+
+
+
+
+
+
+
+
+CI/CD is a 
+powerful software development practice that can help teams ship better-quality software faster
+however, it's not a one-size-fits-all solution and its implementation may vary depending on the complexity of the system
+
+
+# DevOps = Dev(development) + Ops (Operations)
+CI/CD is a part of DevOps, but not all of it.
+
+Goal: 
